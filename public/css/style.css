@@ -1,0 +1,10 @@
+.form-group .required {
+  color: red;
+}
+
+.form-horizontal .form-group .content-label {
+  margin-bottom: 0;
+  vertical-align: middle;
+  padding-top: 7px;
+  font-weight: normal;
+}
