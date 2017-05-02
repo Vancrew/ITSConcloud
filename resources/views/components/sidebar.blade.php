@@ -2,6 +2,19 @@
   <section class="sidebar">
     <ul class="sidebar-menu">
       <li class="header">Menu</li>
+       @if (in_array(Auth::user()->jabatan, ['admin']))
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-list-ol"></i> <span>Image</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{url('image')}}"><i class="fa fa-circle-o"></i>List Image</a></li>
+        </ul>
+      </li>
+      @endif
       <li class="treeview">
         <a href="#">
           <i class="fa fa-shopping-cart"></i> <span>Transaksi</span>

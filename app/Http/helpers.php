@@ -1,12 +1,13 @@
 <?php
 
 use Carbon\Carbon;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 /**
  * Ngubah date dari format database ke yang mudah dibaca
  * 2017-1-31 jadi 31-1-2017
  */
-
 function date_view($date, $format = 'd-m-Y')
 {
     $time = strtotime($date);
@@ -114,4 +115,22 @@ function terbilang($x)
         return terbilang($x / 1000) . " ribu" . terbilang($x % 1000);
     elseif ($x < 1000000000)
         return terbilang($x / 1000000) . " juta" . terbilang($x % 1000000);
+}
+
+
+/* guzzle */
+function apiGET($url){
+    $client = new Client();
+    $result = $client->request('GET', $url);
+    $body = $result->getBody();
+    $data =  json_decode($body->getContents());
+    return $data;
+}
+
+function apiURL($url){
+    $client = new Client();
+    $result = $client->request('GET', $url);
+    $body = $result->getBody();
+    $data = json_decode($body->getContents());
+    return $data;
 }

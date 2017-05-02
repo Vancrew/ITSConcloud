@@ -22,6 +22,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('logout','AuthController@logout');
 
+
+    Route::resource('image','ImageController');
+
     /* Crud */
     Route::resource('users','UsersController');
     Route::resource('produsen','ProdusenController');

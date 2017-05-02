@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="tokoberas">
+<html lang="en" ng-app="itsconloud">
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base_url" content="{{url('/')}}">
 
-    <title>Toko Beras @yield('title')</title>
+    <title>ITS Concloud @yield('title')</title>
 
     <!-- Bootstrap -->
     <link href="{{url('bower_components/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
