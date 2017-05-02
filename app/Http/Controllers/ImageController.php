@@ -67,6 +67,8 @@ class ImageController extends Controller
     public function edit($id)
     {
         //
+        $data['images'] = Image::find($id);
+        return view('app.image_edit', $data);
     }
 
     /**
@@ -79,6 +81,11 @@ class ImageController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $image = Image::find($id);
+        $image->id_image = $request->input('id_image');
+        $image->save();
+
+        return redirect('image')->with('edit_success', true);
     }
 
     /**
@@ -90,5 +97,9 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
+        $image = Image::find(decrypt($id));
+        $image->delete();
+
+        echo 'success';
     }
 }

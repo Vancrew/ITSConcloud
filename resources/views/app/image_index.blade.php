@@ -8,47 +8,16 @@
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h4>Tambah Produsen</h4>
+        <h4>Tambah Image</h4>
       </div>
       <div class="box-body">
-        <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('produsen')}}">
+        <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('image')}}">
           {{csrf_field()}}
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Nama <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3">Nama Image <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
-              <input type="text" name="nama" required="required" class="form-control col-md-7">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-3 control-label">Tanggal Lahir <span class="required">*</span></label>
-            <div class="col-sm-6">
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right datepicker" name="tanggal_lahir" placeholder="YYYY-MM-DD">
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Alamat <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-              <input type="text" name="alamat" required="required" class="form-control col-md-7">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Nomor telepon</label>
-            <div class="col-md-6 col-sm-6">
-              <input class="form-control col-md-7" type="number" name="telepon">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Nomor handphone <span class="required">*</span>
-            </label>
-            <div class="col-md-6 col-sm-6">
-              <input type="number" name="hp" required="required" class="form-control col-md-7">
+              <input type="text" name="nama_image" required="required" class="form-control col-md-7">
             </div>
           </div>
           <div class="form-group">
@@ -85,7 +54,7 @@
                 <td>{{$ima->Created}}</td>
                 <td>{{$ima->Size}} MB</td>
                 <td>
-                  <a class="btn btn-primary fa fa-edit" href="/produsen/{{$ima->id}}/edit"></a>
+                  <a class="btn btn-primary fa fa-edit" href="/image/{{$ima->id}}/edit"></a>
                   <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id)}}"></a>
                 </td>
               </tr>

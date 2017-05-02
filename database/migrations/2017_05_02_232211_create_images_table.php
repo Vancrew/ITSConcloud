@@ -16,9 +16,6 @@ class CreateImagesTable extends Migration
         Schema::create('image', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_image');
-            $table->string('name');
-            $table->date('created');
-            $table->integer('size');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +28,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('image');
     }
 }
