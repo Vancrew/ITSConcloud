@@ -8,7 +8,7 @@
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h4>Tambah Karyawan</h4>
+        <h4>Tambah User</h4>
       </div>
       <div class="box-body">
         <br />
@@ -59,7 +59,7 @@
             </label>
             <div class="col-md-6 col-sm-6">
               <select name="jabatan" required="required" class="form-control col-md-7">
-                @foreach (['admin', 'petugas', 'keuangan'] as $jabatan)
+                @foreach (['admin', 'petugas'] as $jabatan)
                 <option value="{{$jabatan}}">{{$jabatan}}</option>
                 @endforeach
               </select>
@@ -99,7 +99,7 @@
       <div class="col-md-12 col-sm-12">
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h4>Karyawan</h4>
+            <h4>User</h4>
           </div>
           <div class="box-body">
             <div class="table-responsive">

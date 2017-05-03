@@ -127,10 +127,18 @@ function apiGET($url){
     return $data;
 }
 
-function apiURL($url){
+function apiPOST($url){
     $client = new Client();
-    $result = $client->request('GET', $url);
+    $result = $client->request('POST', $url);
     $body = $result->getBody();
-    $data = json_decode($body->getContents());
+    $data =  json_decode($body->getContents());
+    return $data;
+}
+
+function apiDELETE($url){
+    $client = new Client();
+    $result = $client->request('DELETE', $url);
+    $body = $result->getBody();
+    $data =  json_decode($body->getContents());
     return $data;
 }

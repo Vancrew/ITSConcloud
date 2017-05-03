@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Image;
 
-class ImageController extends Controller
+class ContainerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +13,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $data['images'] = Image::get();
-        foreach ($data['images'] as $image) {
-            //dd($image->id_image);
-            $json = apiGET('10.151.36.109:4243/images/'.$image->id_image.'/json');
-            $image->Repo_tags = $json->RepoTags[0];
-            $image->Created = $json->Created;
-            $image->Size = round(($json->Size / 1024 / 1024));
-        }
-
-        return view('app.image_index', $data);
+        //
     }
 
     /**
@@ -45,11 +35,6 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         //
-        $image = new Image;
-        $image->id_image = $request->input('nama_image');
-        $image->save();
-
-        return redirect()->back()->with('tambah_success', true);
     }
 
     /**
@@ -72,8 +57,6 @@ class ImageController extends Controller
     public function edit($id)
     {
         //
-        $data['images'] = Image::find($id);
-        return view('app.image_edit', $data);
     }
 
     /**
@@ -86,11 +69,6 @@ class ImageController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $image = Image::find($id);
-        $image->id_image = $request->input('id_image');
-        $image->save();
-
-        return redirect('image')->with('edit_success', true);
     }
 
     /**
@@ -102,9 +80,5 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
-        $image = Image::find(decrypt($id));
-        $image->delete();
-
-        echo 'success';
     }
 }

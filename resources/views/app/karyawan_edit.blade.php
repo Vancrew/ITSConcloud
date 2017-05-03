@@ -7,7 +7,7 @@
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h4>Edit Data Karyawan</h4>
+        <h4>Edit Data User</h4>
       </div>
       <div class="box-body">
         <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="/users/{{$user->id}}">
@@ -58,7 +58,7 @@
             </label>
             <div class="col-md-6 col-sm-6">
               <select name="jabatan" required="required" class="form-control col-md-7" value="{{$user->jabatan}}">
-                @foreach (['admin', 'petugas', 'keuangan'] as $jabatan)
+                @foreach (['admin', 'petugas'] as $jabatan)
                 <option value="{{$jabatan}}" {{$user->jabatan == $jabatan ? ' selected' : ''}}>{{$jabatan}}</option>
                 @endforeach
               </select>

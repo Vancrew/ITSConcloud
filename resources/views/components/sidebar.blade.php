@@ -2,7 +2,8 @@
   <section class="sidebar">
     <ul class="sidebar-menu">
       <li class="header">Menu</li>
-       @if (in_array(Auth::user()->jabatan, ['admin']))
+
+      @if (in_array(Auth::user()->jabatan, ['admin']))
       <li class="treeview">
         <a href="#">
           <i class="fa fa-list-ol"></i> <span>Image</span>
@@ -15,6 +16,46 @@
         </ul>
       </li>
       @endif
+
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-list-ol"></i> <span>Container</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{url('container')}}"><i class="fa fa-circle-o"></i>List Container</a></li>
+        </ul>
+      </li>
+
+       <li class="treeview">
+        <a href="#">
+          <i class="fa fa-list-ol"></i> <span>Web</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{url('web')}}"><i class="fa fa-circle-o"></i>List Web</a></li>
+        </ul>
+      </li>
+
+      @if (in_array(Auth::user()->jabatan, ['admin']))
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-database"></i> <span>User</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{url('users')}}"><i class="fa fa-circle-o"></i>List User</a></li>
+        </ul>
+      </li>
+      @endif
+
+      @if (in_array(Auth::user()->jabatan, ['keuangan']))
       <li class="treeview">
         <a href="#">
           <i class="fa fa-shopping-cart"></i> <span>Transaksi</span>
@@ -29,7 +70,7 @@
           <li><a href="{{url('transaksi/pembayaran')}}"><i class="fa fa-circle-o"></i> Pembayaran</a></li>
         </ul>
       </li>
-      @if (in_array(Auth::user()->jabatan, ['admin', 'keuangan']))
+      
       <li class="treeview">
         <a href="#">
           <i class="fa fa-list-ol"></i> <span>Laporan</span>
@@ -44,8 +85,7 @@
           <li><a href="{{url('laporan/inventory/harian')}}"><i class="fa fa-circle-o"></i> Inventory harian</a></li>
         </ul>
       </li>
-      @endif
-      @if (in_array(Auth::user()->jabatan, ['admin', 'keuangan']))
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-pie-chart"></i> <span>Grafik</span>
@@ -66,6 +106,7 @@
         </ul>
       </li>
       @endif
+
       @if (in_array(Auth::user()->jabatan, ['admin']))
       <li class="treeview">
         <a href="#">
