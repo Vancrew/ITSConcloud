@@ -3,7 +3,7 @@
     <ul class="sidebar-menu">
       <li class="header">Menu</li>
 
-      @if (in_array(Auth::user()->jabatan, ['admin']))
+      @if (in_array(Auth::user()->jabatan, ['admin', 'petugas']))
       <li class="treeview">
         <a href="#">
           <i class="fa fa-list-ol"></i> <span>Image</span>

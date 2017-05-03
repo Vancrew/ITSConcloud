@@ -17,7 +17,11 @@
             <label class="control-label col-md-3 col-sm-3">Nama Image <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
-              <input type="text" name="nama_image" required="required" class="form-control col-md-7">
+              <select class="form-control col-md-7" required="required" name="nama_image">
+                 @foreach($images as $ima)
+                  <option value="{{$ima->id_image}}"> {{$ima->Repo_tags}} </option>
+                @endforeach
+              </select>
             </div>
           </div>
           <div class="form-group">
