@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
   <div class="col-md-12 col-sm-12">
-    <div class="box box-primary">
+ <!--    <div class="box box-primary">
       <div class="box-header with-border">
         <h4>Tambah Image</h4>
       </div>
@@ -14,7 +14,7 @@
         <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('image')}}">
           {{csrf_field()}}
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Nama Image <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3">ID Image <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
               <input type="text" name="nama_image" required="required" class="form-control col-md-7">
@@ -28,6 +28,7 @@
         </form>
       </div>
     </div>
+     -->
     <div class="box box-primary">
       <div class="box-header">
         <h4>Image</h4>
@@ -42,7 +43,7 @@
                 <th>Name Image</th>
                 <th>Created</th>
                 <th>Size</th>
-                <th>Action</th>
+      <!--           <th>Action</th> -->
               </tr>
             </thead>
             <tbody>
@@ -53,10 +54,10 @@
                 <td>{{$ima->Repo_tags}}</td>
                 <td>{{$ima->Created}}</td>
                 <td>{{$ima->Size}} MB</td>
-                <td>
-                  <a class="btn btn-primary fa fa-edit" href="/image/{{$ima->id}}/edit"></a>
-                  <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id)}}"></a>
-                </td>
+             <!--    <td>
+                  <a class="btn btn-primary fa fa-edit" href="/image/{{$ima->id_image}}/edit"></a>
+                  <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id_image)}}"></a>
+                </td> -->
               </tr>
               @endforeach
             </tbody>

@@ -14,14 +14,18 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $data['images'] = Image::get();
+        $data['images'] = apiGET('10.151.36.109:4243/images/json');
         foreach ($data['images'] as $image) {
             //dd($image->id_image);
-            $json = apiGET('10.151.36.109:4243/images/'.$image->id_image.'/json');
+            $json = apiGET('10.151.36.109:4243/images/'.$image->Id.'/json');
+            $image->id_image = substr($image->Id, 8, 12);
             $image->Repo_tags = $json->RepoTags[0];
-            $image->Created = $json->Created;
-            $image->Size = round(($json->Size / 1024 / 1024));
+            $image->Created = substr($json->Created, 0, 10) . " " . substr($json->Created, 11, 8);
+            $image->Size = round(($json->Size / 1024 / 1024),2);
         }
+
+        //$data2['images'] = apiGET('10.151.36.109:4243/images/json');
+        //dd($data);
 
         return view('app.image_index', $data);
     }

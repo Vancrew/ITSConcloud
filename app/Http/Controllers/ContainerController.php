@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Image;
+use App\Container;
 
 class ContainerController extends Controller
 {
@@ -14,6 +16,9 @@ class ContainerController extends Controller
     public function index()
     {
         //
+        $data['containers'] = Image::get();
+
+        return view('app.container_index', $data);
     }
 
     /**

@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::resource('image','ImageController');
+    Route::resource('container','ContainerController');
+
 
     /* Crud */
     Route::resource('users','UsersController');

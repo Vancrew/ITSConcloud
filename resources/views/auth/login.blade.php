@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>
-    Toko Beras
+    ITS Concloud
   </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -20,7 +20,7 @@
 <div class="login-box">
   <br><br>
   <div class="login-logo">
-    <a href="#" style="color:#ddd"><b>Toko</b>Beras</a>
+    <a href="#" style="color:#ddd"><b>ITS</b>Concloud</a>
   </div>
   <!-- /.login-logo -->
   <div class="box box-primary">
