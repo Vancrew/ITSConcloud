@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Image;
-use App\Container;
 
-class ContainerController extends Controller
+use App\Http\Requests;
+use App\File;
+
+class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +17,8 @@ class ContainerController extends Controller
     public function index()
     {
         //
-        $data['images'] = apiGET('10.151.36.109:4243/images/json');
-        foreach ($data['images'] as $image) {
-            //dd($image->id_image);
-            $json = apiGET('10.151.36.109:4243/images/'.$image->Id.'/json');
-            $image->id_image = $image->Id;
-            $image->Repo_tags = $json->RepoTags[0];
-        }
-        $data['container'] = Image::get();
-
-        return view('app.container_index', $data);
+        $file = File::paginate(4);
+        return view('file.index',compact('file'));
     }
 
     /**
@@ -36,6 +29,8 @@ class ContainerController extends Controller
     public function create()
     {
         //
+        $file = new TbFile;
+        return view('file.create',compact('file'))->renderSections()['content'];
     }
 
     /**
@@ -47,7 +42,30 @@ class ContainerController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->input('nama_image'));
+        $this->validate($request,[
+            'nama' => 'required',
+            'file' => 'required|mimes:jpg'
+        ]);
+        $maxId = \DB::table('file')->max('id') + 1;
+        try{       
+            $uploaded = $request->file('file');
+            $file = new File;
+            $file->id = $maxId;
+            $file->nama = $request->nama;
+            $file->file = $maxId."-".$uploaded->getClientOriginalName();
+            $file->save();
+            $uploaded->move(public_path('images/'),$file->file);
+            \Session::flash('flash_message','Gambar berhasil ditambahkan');
+        }catch(\Exception $e){
+            echo $e->getMessage();
+            echo "<br>".$e->getLine();
+            die();
+        }
+        $response = array(
+            'status' => 'success',
+            'url' => action('FileController@index'),
+        );
+        return $response;
     }
 
     /**
@@ -93,5 +111,10 @@ class ContainerController extends Controller
     public function destroy($id)
     {
         //
+        $file = File::findOrFail($id);
+        unlink(public_path('images/').$file->file);
+        $file->delete();
+        \Session::flash('flash_message','Dokumen berhasil di hapus');
+        return redirect()->action('FileController@index');
     }
 }

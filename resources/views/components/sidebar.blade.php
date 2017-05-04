@@ -37,7 +37,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{url('web')}}"><i class="fa fa-circle-o"></i>List Web</a></li>
+          <li><a href="{{url('file')}}"><i class="fa fa-circle-o"></i>List Web</a></li>
         </ul>
       </li>
 

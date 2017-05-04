@@ -50,7 +50,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($containers as $ima)
+              @foreach($container as $ima)
               <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
                 <td>{{$ima->id_image}}</td>
