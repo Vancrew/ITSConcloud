@@ -1,26 +1,31 @@
 @extends('app')
 
-@section('content')
+@include('plugins.datatable')
+@include('plugins.datepicker')
 
+@section('content')
 <div class="row">
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h4>Upload</h4>
+        <h4>Tambah Web</h4>
       </div>
       <div class="box-body">
         <br />
 
-        <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('upload')}}" enctype="multipart/form-data">
+        <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('file')}}" enctype="multipart/form-data">
           {{csrf_field()}}
-          
+       
           <div class="form-group">
-            <label class="col-sm-3 control-label"><strong>Browse</strong></label>
-            <input type="file" name="web" id="fileToUpload" accept=".zip,.rar">
+            <label class="control-label col-md-3 col-sm-3">Browse <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="file" name="web" required="required" id="fileToUpload" accept=".zip,.rar" class="form-control col-md-7">
+            </div>
           </div>
-
-           <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-sm-offset-3">
+         
+          <div class="form-group">
+            <div class="col-md-6 col-sm-6">
               <input type="hidden" class="btn btn-success" value="{{Auth::user()->id}}" name="id">
             </div>
           </div>
@@ -30,8 +35,45 @@
               <button type="submit" class="btn btn-success">Upload</button>
             </div>
           </div>
-          
         </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h4>Web</h4>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table id="datatable-buttons" class="table table-hover datatabel">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama File</th>
+                    <th>Path</th>
+                    <th>Ukuran</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($files as $file)
+                  <tr>
+                    <td>{{$loop->iteration}}</td>
+                    <td>{{$file->name}}</td>
+                    <td>{{$file->path}}</td>
+                    <td>{{$file->size}} MB</td>
+                    <td>
+                      <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($file->id)}}"></a>
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -89,5 +131,4 @@ $(function() {
   swal("Success", "Data berhasil diubah", "success");
 @endif
 </script>
-
 @endsection

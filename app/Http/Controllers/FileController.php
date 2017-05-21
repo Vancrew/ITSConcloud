@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 use App\Http\Requests;
 use App\File;
+use App\Image;
+use Auth;
 
 class FileController extends Controller
 {
@@ -16,9 +19,15 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
-        $file = File::paginate(4);
-        return view('file.index',compact('file'));
+        $data['files'] = File::where('user_id',Auth::id())->get();
+        foreach ($data['files'] as $file) {
+            
+            $file->size = round(($file->size / 1024 / 1024),2);
+
+        }
+        // dd($data);
+
+        return view('app.file_index',$data);
     }
 
     /**
@@ -29,8 +38,6 @@ class FileController extends Controller
     public function create()
     {
         //
-        $file = new TbFile;
-        return view('file.create',compact('file'))->renderSections()['content'];
     }
 
     /**
@@ -42,30 +49,22 @@ class FileController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request,[
-            'nama' => 'required',
-            'file' => 'required|mimes:jpg'
-        ]);
-        $maxId = \DB::table('file')->max('id') + 1;
-        try{       
-            $uploaded = $request->file('file');
-            $file = new File;
-            $file->id = $maxId;
-            $file->nama = $request->nama;
-            $file->file = $maxId."-".$uploaded->getClientOriginalName();
-            $file->save();
-            $uploaded->move(public_path('images/'),$file->file);
-            \Session::flash('flash_message','Gambar berhasil ditambahkan');
-        }catch(\Exception $e){
-            echo $e->getMessage();
-            echo "<br>".$e->getLine();
-            die();
-        }
-        $response = array(
-            'status' => 'success',
-            'url' => action('FileController@index'),
-        );
-        return $response;
+        // phpinfo();
+        // dd($request->web->getClientOriginalExtension());
+        // dd($request->web->getClientOriginalName());
+        $file = new File;
+        $file->name = $request->web->getClientOriginalName();
+        $file->user_id = $request->input('id');
+        $file->size = $request->web->getClientsize();
+        // dd($file);
+        $file->path = $request->web->storeAs($request->input('id'),$file->name);
+        
+        // $file->name = $request->input('nama_image');
+        // dd($file);
+
+        $file->save();
+
+        return redirect()->back()->with('tambah_success', true);
     }
 
     /**
@@ -88,6 +87,8 @@ class FileController extends Controller
     public function edit($id)
     {
         //
+        // $data['images'] = Image::find($id);
+        // return view('app.image_edit', $data);
     }
 
     /**
@@ -100,6 +101,11 @@ class FileController extends Controller
     public function update(Request $request, $id)
     {
         //
+        // $image = Image::find($id);
+        // $image->id_image = $request->input('id_image');
+        // $image->save();
+
+        // return redirect('image')->with('edit_success', true);
     }
 
     /**
@@ -111,10 +117,9 @@ class FileController extends Controller
     public function destroy($id)
     {
         //
-        $file = File::findOrFail($id);
-        unlink(public_path('images/').$file->file);
-        $file->delete();
-        \Session::flash('flash_message','Dokumen berhasil di hapus');
-        return redirect()->action('FileController@index');
+        // $image = Image::find(decrypt($id));
+        // $image->delete();
+
+        // echo 'success';
     }
 }

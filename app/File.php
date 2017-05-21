@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class File extends Model
 {
-    //
     use SoftDeletes;
 
-    protected $table = 'file';
+    protected $table = 'files';
 
     protected $guarded = [];
 }

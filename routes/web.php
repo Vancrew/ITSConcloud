@@ -11,14 +11,18 @@
 |
 */
 
+    Route::get('/','HomeController@index');
+    
 Route::group(['middleware' => 'guest'], function () {
     Route::get('login','AuthController@showLoginForm');
     Route::post('login','AuthController@login');
+    Route::get('register','AuthController@showRegisterForm');
+    Route::post('register','AuthController@register');
+
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/','HomeController@index');
-    Route::get('index','HomeController@index');
+    // Route::get('/','HomeController@index');
 
     Route::get('logout','AuthController@logout');
 
