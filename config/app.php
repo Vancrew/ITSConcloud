@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+       'Chumper\Zipper\ZipperServiceProvider',
         /*
          * Package Service Providers...
          */
@@ -192,6 +193,7 @@ return [
 
     'aliases' => [
 
+        'Zipper' => 'Chumper\Zipper\Zipper',
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -224,7 +226,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        // 'Zipper' => Chumper\Zipper\Zipper,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 

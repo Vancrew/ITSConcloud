@@ -9,6 +9,9 @@ use App\Http\Requests;
 use App\File;
 use App\Image;
 use Auth;
+use ZipArchive;
+use Zipper;
+// use UrlGenerator;
 
 class FileController extends Controller
 {
@@ -62,7 +65,37 @@ class FileController extends Controller
         // $file->name = $request->input('nama_image');
         // dd($file);
 
-        $file->save();
+        $file->pathfrom = 'storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName();
+        $file->pathto = 'storage/app/'.$request->input('id');
+        // dd($file->pathfrom);
+
+        $filename = $file->pathfrom;
+
+        if (file_exists(base_path($filename))) {
+            echo "The file $filename exists";
+            // dd();
+        } else {
+            echo base_path($filename);
+            echo "                kkkk";
+            // dd();
+        }
+
+        Zipper::make(base_path($filename))->extractTo(base_path($file->pathto));
+
+        // $file->save();
+
+        
+
+        // $zip = new ZipArchive;
+        // if ($zip->open('storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName()) === TRUE) {
+        //     $zip->extractTo('storage/app/'.$request->input('id').'/');
+        //     $zip->close();
+        //     echo 'ok';
+        //     dd(3);
+        // } else {
+        //     echo 'failed';
+        //     dd(2);
+        // }
 
         return redirect()->back()->with('tambah_success', true);
     }
