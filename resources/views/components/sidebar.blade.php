@@ -147,7 +147,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{url('image')}}"><i class="fa fa-circle-o"></i>Dashboard</a></li>
+            <li><a href="{{url('dasboard')}}"><i class="fa fa-circle-o"></i>Dashboard</a></li>
           </ul>
         </li>
         @endif

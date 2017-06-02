@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\Filesystem;
 
 use App\Http\Requests;
 use App\File;
@@ -60,29 +62,37 @@ class FileController extends Controller
         $file->user_id = $request->input('id');
         $file->size = $request->web->getClientsize();
         // dd($file);
-        $file->path = $request->web->storeAs($request->input('id'),$file->name);
+        $file->path = $request->web->storeAs($request->input('id'),$file->name).'/'.strstr($request->web->getClientOriginalName(), '.', true);
         
         // $file->name = $request->input('nama_image');
         // dd($file);
 
-        $file->pathfrom = 'storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName();
-        $file->pathto = 'storage/app/'.$request->input('id');
-        // dd($file->pathfrom);
+        $pathfrom = 'storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName();
+        $pathto = 'storage/app/'.$request->input('id').'/'.strstr($request->web->getClientOriginalName(), '.', true);
+        // dd($file->path);
 
-        $filename = $file->pathfrom;
+        $filename = $pathfrom;
 
-        if (file_exists(base_path($filename))) {
-            echo "The file $filename exists";
-            // dd();
-        } else {
-            echo base_path($filename);
-            echo "                kkkk";
-            // dd();
-        }
+        // if (file_exists(base_path($filename))) {
+        //     echo "The file $filename exists";
+        //     // dd();
+        // } else {
+        //     echo base_path($filename);
+        //     echo "                kkkk";
+        //     // dd();
+        // }
 
-        Zipper::make(base_path($filename))->extractTo(base_path($file->pathto));
+        // fix
+        Zipper::make(base_path($filename))->extractTo(base_path($pathto));
 
-        // $file->save();
+        // fix
+        // Storage::deleteDirectory($request->input('id').'/'.strstr($request->web->getClientOriginalName(), '.', true));
+        // dd('llop');
+
+        // $success = File::deleteDirectory(base_path($file->pathto));
+
+
+        $file->save();
 
         
 

@@ -35,7 +35,7 @@ class ContainerController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -47,7 +47,15 @@ class ContainerController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request->input('nama_image'));
+        // dd($request->input('nama_image'));
+        
+        $jsontest = apiPOSTbody('10.151.36.109:4243/containers/create');
+
+        // berhasil
+        // $jsontest = apiPOST('10.151.36.109:4243/containers/28b0ed731e3cb05e3e092c133fd12d71a4af4f2644b89f309c0eacb5c893c64a/start');
+        // dd($jsontest);
+        // $json = apiPOST('10.151.36.109:4243/containers/'.$request->input('nama_image').'/start');
+        dd($jsontest);
     }
 
     /**
