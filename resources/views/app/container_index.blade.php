@@ -19,11 +19,18 @@
             <div class="col-md-6 col-sm-6">
               <select class="form-control col-md-7" required="required" name="nama_image">
                  @foreach($images as $ima)
-                  <option value="{{$ima->id_image}}"> {{$ima->Repo_tags}} </option>
+                  <option value="{{$ima->Repo_tags}}"> {{$ima->Repo_tags}} </option>
                 @endforeach
               </select>
             </div>
           </div>
+
+          <div class="form-group">
+            <div class="col-md-6 col-sm-6">
+              <input type="hidden" class="btn btn-success" value="{{Auth::user()->id}}" name="id">
+            </div>
+          </div>
+
           <div class="form-group">
             <div class="col-md-6 col-sm-6 col-md-offset-3">
               <button type="submit" class="btn btn-success">Submit</button>
@@ -53,13 +60,12 @@
               @foreach($container as $ima)
               <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
-                <td>{{$ima->id_image}}</td>
-                <td>{{$ima->id}}</td>
-                <td>{{$ima->id}}</td>
-                <td>{{$ima->id}} MB</td>
+                <td>{{$ima->id_con}}</td>
+                <td>{{$ima->id_user}}</td>
+                <td>{{$ima->id_user}}</td>
+                <td>{{$ima->id_user}} MB</td>
                 <td>
-                  <a class="btn btn-primary fa fa-edit" href="/container/{{$ima->id}}/edit"></a>
-                  <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id)}}"></a>
+                  <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id_user)}}"></a>
                 </td>
               </tr>
               @endforeach

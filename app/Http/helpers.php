@@ -136,7 +136,7 @@ function apiPOST($url){
     return $data;
 }
 
-function apiPOSTbody($url){
+function apiPOSTbody($url,$image){
     $client = new Client(); 
     $result = $client->post($url, [
     'json' => [
@@ -152,7 +152,7 @@ function apiPOSTbody($url){
                 'Env'=> [ 'FOO=bar', 'BAZ=quux' ],
                 'Entrypoint'=> '',
                 'Cmd'=> [ 'date' ],
-                'Image'=> 'ubuntu',
+                'Image'=> $image,
                 'Volumes'=> [
                    '/volumes/data' => new stdClass() 
                 ],
@@ -167,9 +167,12 @@ function apiPOSTbody($url){
                 'StopTimeout'=> 10
             ]
 ]);
-    dd($result);
+    // dd($result);
     $body = $result->getBody();
+    // dd($body);
     $data =  json_decode($body->getContents());
+    // dd($data);
+
     return $data;
 }
 
