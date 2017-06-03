@@ -137,35 +137,36 @@ function apiPOST($url){
 }
 
 function apiPOSTbody($url){
-    $client = new Client();
-    $result = $client->request('POST', $url, 
-        [
-            'json' => [
-                        'Hostname'=> '',
-                        'Domainname'=> '',
-                        'User'=> '',
-                        'AttachStdin'=> false,
-                        'AttachStdout'=> true,
-                        'AttachStderr'=> true,
-                        'Tty'=> false,
-                        'OpenStdin'=> false,
-                        'StdinOnce'=> false,
-                        'Env'=> [ 'FOO=bar', 'BAZ=quux' ],
-                        'Cmd'=> [ 'date' ],
-                        'Entrypoint'=> '',
-                        'Image'=> 'vancrew/myfirstapp=>latest',
-                        'Labels'=> [ 'com.example.vendor'=> 'Acme', 'com.example.license'=> 'GPL', 'com.example.version'=> '1.0' ],
-                        'Volumes'=> [ '/volumes/data'=> [ ] ],
-                        'WorkingDir'=> '',
-                        'NetworkDisabled'=> false,
-                        'MacAddress'=> '12:34:56:78:9a:bc',
-                        'ExposedPorts'=> [ '22/tcp'=> [ ] ],
-                        'StopSignal'=> 'SIGTERM',
-                        'StopTimeout'=> 10
-                      ]
-        ]
-    );
-
+    $client = new Client(); 
+    $result = $client->post($url, [
+    'json' => [
+                'Hostname'=> '',
+                'Domainname'=> '',
+                'User'=> '',
+                'AttachStdin'=> false,
+                'AttachStdout'=> true,
+                'AttachStderr'=> true,
+                'Tty'=> false,
+                'OpenStdin'=> false,
+                'StdinOnce'=> false,
+                'Env'=> [ 'FOO=bar', 'BAZ=quux' ],
+                'Entrypoint'=> '',
+                'Cmd'=> [ 'date' ],
+                'Image'=> 'ubuntu',
+                'Volumes'=> [
+                   '/volumes/data' => new stdClass() 
+                ],
+                'WorkingDir'=> '',
+                'NetworkDisabled'=> false,
+                'MacAddress'=> '12:34:56:78:9a:bc',
+                'ExposedPorts'=> 
+                [ 
+                    '22/tcp'=> new stdClass() 
+                ],
+                'StopSignal'=> 'SIGTERM',
+                'StopTimeout'=> 10
+            ]
+]);
     dd($result);
     $body = $result->getBody();
     $data =  json_decode($body->getContents());
