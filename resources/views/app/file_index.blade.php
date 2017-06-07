@@ -15,12 +15,32 @@
 
         <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('file')}}" enctype="multipart/form-data">
           {{csrf_field()}}
-       
+          
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3">Nama Image <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="text" name="namerepo" required="required" class="form-control col-md-7">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3">Jenis File <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <select class="form-control col-md-7" required="required" name="jenis_file">
+                  <option value="web"> web (.zip) </option>
+                  <!-- <option value="database"> file database </option> -->
+                  <option value="dockerfile"> dockerfile </option>
+              </select>
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3">Browse <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
-              <input type="file" name="web" required="required" id="fileToUpload" accept=".zip,.rar" class="form-control col-md-7">
+              <input type="file" name="web" required="required" id="fileToUpload" accept=".tar.gz" class="form-control col-md-7">
             </div>
           </div>
          
@@ -52,6 +72,7 @@
                   <tr>
                     <th>No</th>
                     <th>Nama File</th>
+                    <th>Tipe File</th>
                     <th>Path</th>
                     <th>Ukuran</th>
                     <th>Action</th>
@@ -62,6 +83,7 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$file->name}}</td>
+                    <td>{{$file->jenis_file}}</td>
                     <td>{{$file->path}}</td>
                     <td>{{$file->size}} MB</td>
                     <td>

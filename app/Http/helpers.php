@@ -176,6 +176,53 @@ function apiPOSTbody($url,$image){
     return $data;
 }
 
+function apiPOSTbuild($url){
+    $client = new Client(); 
+    // $history = new \GuzzleHttp\Subscriber\History();
+    // $client->getEmitter()->attach($history);
+    // $result = $client->post($url, [
+    //         'form_params' => [
+    //           'my_file' => fopen(base_path('Dockerfile.tar.gz'), 'r')
+    //         ]
+    //     ]);
+
+    // $result = $client->post('10.151.36.109:4243/build?t=tsa')->addPostFiles(array('file' => base_path('Dockerfile.tar.gz')),('Content-Type: application/tar'));
+
+
+    // Provide an fopen resource.
+    $body = fopen(base_path('Dockerfile.tar.gz'), 'r');
+    $result = $client->request('POST', '10.151.36.109:4243/build?t=tsa', ['body' => $body]);
+
+    // echo $history;
+//     $request = curl_init($url);
+
+//     // send a file
+//     curl_setopt($request, CURLOPT_POST, true);
+//     curl_setopt(
+//         $request,
+//         CURLOPT_POSTFIELDS,
+//         array(
+//           'file' => '@' . base_path('Dockerfile.tar.gz')
+//         ));
+
+// // output the response
+// curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+// echo curl_exec($request);
+
+// // close the session
+// curl_close($request);
+
+
+    dd($result);
+    $body = $result->getBody();
+    // dd($body);
+    $data =  json_decode($body->getContents());
+    // dd($data);
+
+    return $data;
+}
+
+
 function apiDELETE($url){
     $client = new Client();
     $result = $client->request('DELETE', $url);

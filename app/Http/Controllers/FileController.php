@@ -57,18 +57,23 @@ class FileController extends Controller
         // phpinfo();
         // dd($request->web->getClientOriginalExtension());
         // dd($request->web->getClientOriginalName());
+
+
         $file = new File;
         $file->name = $request->web->getClientOriginalName();
         $file->user_id = $request->input('id');
         $file->size = $request->web->getClientsize();
         // dd($file);
-        $file->path = $request->web->storeAs($request->input('id'),$file->name).'/'.strstr($request->web->getClientOriginalName(), '.', true);
-        
+
+        // $file->path = $request->web->storeAs($request->input('id'),$file->name).'/'.strstr($request->web->getClientOriginalName(), '.', true);
+        $file->jenis_file = $request->input('jenis_file');
+        // dd($file->path);
         // $file->name = $request->input('nama_image');
         // dd($file);
 
-        $pathfrom = 'storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName();
-        $pathto = 'storage/app/'.$request->input('id').'/'.strstr($request->web->getClientOriginalName(), '.', true);
+        // $pathfrom = 'storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName();
+        $pathfrom = base_path('storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName());
+        // $pathto = 'storage/app/'.$request->input('id').'/'.strstr($request->web->getClientOriginalName(), '.', true);
         // dd($file->path);
 
         $filename = $pathfrom;
@@ -83,18 +88,70 @@ class FileController extends Controller
         // }
 
         // fix
-        Zipper::make(base_path($filename))->extractTo(base_path($pathto));
+        if ($request->input('jenis_file')=="web")
+        {
+            // Zipper::make(base_path($filename))->extractTo(base_path($pathto));
+            $command = "docker images apache";
 
+            // dd($pathfrom);
+            $output = shell_exec($command);
+            $output1 = strstr($output, "apache");
+            $output2 = strstr($output1, ' ', true);
+            $output3 = strstr($output2, ' ');
+            dd($output2);
+
+        }
+
+        if ($request->input('jenis_file')=="dockerfile")
+        {
+            // dd("hehe");
+            // dd(date('Y-m-d H:i:s'));
+            $file->path = $request->web->storeAs($request->input('id'),$file->name);
+
+            // $myfile = fopen(base_path('storage/app/log/a'), "r");
+            // // dd($myfile);
+            // $angka = fread($myfile,filesize(base_path('storage/app/log/a')));
+            // fclose($myfile);
+            // $angka2 = strstr($angka,PHP_EOL,true);
+            // $angka3 = $angka2+2;
+            // $angka4 = $angka3."\n";
+            // // dd($angka4);
+            
+            // $myfile = fopen(base_path('storage/app/log/a'), "w");
+            // fwrite($myfile, $angka3."\n");
+            // fclose($myfile);
+
+            // $log=2;
+
+            $filename=base_path('storage/app/log/a');
+            if(!file_exists($filename)){
+                $counter = 0 ;
+            }
+            else
+                $counter = file_get_contents ($filename);
+            $counter++;
+            file_put_contents($filename, $counter);
+
+
+            $command = "curl -v -X POST -H \"Content-Type:application/tar\" --data-binary '@".$pathfrom."' http://localhost:4243/build?t=".$request->input('namerepo')." >".base_path('storage/app/log/'.$counter)." 2>&1 &";
+
+            // dd($pathfrom);
+            $output = shell_exec($command);
+            // dd($output);
+            // dd($counter);
+            // dd($command);
+
+        }
         // fix
         // Storage::deleteDirectory($request->input('id').'/'.strstr($request->web->getClientOriginalName(), '.', true));
         // dd('llop');
 
         // $success = File::deleteDirectory(base_path($file->pathto));
 
-
+        $file->mime = base_path('storage/app/log/'.$counter);
         $file->save();
 
-        
+        // dd($counter);
 
         // $zip = new ZipArchive;
         // if ($zip->open('storage/app/'.$request->input('id').'/'.$request->web->getClientOriginalName()) === TRUE) {

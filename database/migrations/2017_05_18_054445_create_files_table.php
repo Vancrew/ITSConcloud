@@ -22,6 +22,7 @@ class CreateFilesTable extends Migration
             $table->string('path')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('size')->unsigned();
+            $table->string('jenis_file');
             $table->timestamps();
             $table->softDeletes();
 

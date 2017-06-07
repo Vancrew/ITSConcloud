@@ -65,6 +65,7 @@
                 <td>{{$ima->id_user}}</td>
                 <td>{{$ima->id_user}} MB</td>
                 <td>
+                  <a class="btn btn-primary fa fa-edit" href="/users/{{$ima->id_user}}/edit"></a>
                   <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id_user)}}"></a>
                 </td>
               </tr>
