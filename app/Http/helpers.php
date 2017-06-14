@@ -3,7 +3,8 @@
 use Carbon\Carbon;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
-
+use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Exception\RequestException;
 /**
  * Ngubah date dari format database ke yang mudah dibaca
  * 2017-1-31 jadi 31-1-2017
@@ -122,15 +123,39 @@ function terbilang($x)
 function apiGET($url){
     $client = new Client();
     $result = $client->request('GET', $url);
+    // dd("pause");
     $body = $result->getBody();
     $data =  json_decode($body->getContents());
+    // dd($result);
     return $data;
+
+    // $promise = $client->requestAsync('GET', 'http://httpbin.org/get');
+// 
+
+}
+
+function apitestGET($url){
+    $client = new Client();
+    $data = 0;
+    try{
+        $result = $client->request('GET', $url);
+        $body = $result->getBody();
+        $data =  json_decode($body->getContents());  
+    }
+    catch(RequestException $e){
+        // dd("hehe");
+        // $data = 0;
+
+    }
+    // dd($data);
+    return $data;
+
 }
 
 function apiPOST($url){
     $client = new Client();
     $result = $client->request('POST', $url);
-    dd($result);
+    // dd($result);
     $body = $result->getBody();
     $data =  json_decode($body->getContents());
     return $data;

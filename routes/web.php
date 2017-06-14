@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('image','ImageController');
     Route::resource('container','ContainerController');
     Route::resource('file', 'FileController');
+    Route::get('file/{id}/show','FileController@show');
 
 
     /* Crud */

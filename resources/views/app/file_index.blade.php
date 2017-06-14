@@ -8,7 +8,7 @@
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h4>Tambah Web</h4>
+        <h4>Upload Aplikasi</h4>
       </div>
       <div class="box-body">
         <br />
@@ -17,7 +17,7 @@
           {{csrf_field()}}
           
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Nama Image <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3">Nama Aplikasi <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
               <input type="text" name="namerepo" required="required" class="form-control col-md-7">
@@ -29,9 +29,9 @@
             </label>
             <div class="col-md-6 col-sm-6">
               <select class="form-control col-md-7" required="required" name="jenis_file">
-                  <option value="web"> web (.zip) </option>
+                  <!-- <option value="web"> web (.zip) </option> -->
                   <!-- <option value="database"> file database </option> -->
-                  <option value="dockerfile"> dockerfile </option>
+                  <option value="dockerfile"> dockerfile ( *.tar.gz ) </option>
               </select>
             </div>
           </div>
@@ -71,9 +71,10 @@
                 <thead>
                   <tr>
                     <th>No</th>
+                    <th>Nama Aplikasi</th>
                     <th>Nama File</th>
                     <th>Tipe File</th>
-                    <th>Path</th>
+                    <th>Tanggal</th>
                     <th>Ukuran</th>
                     <th>Action</th>
                   </tr>
@@ -82,18 +83,20 @@
                   @foreach($files as $file)
                   <tr>
                     <td>{{$loop->iteration}}</td>
+                    <td>{{$file->random_name}}</td>
                     <td>{{$file->name}}</td>
                     <td>{{$file->jenis_file}}</td>
-                    <td>{{$file->path}}</td>
-                    <td>{{$file->size}} MB</td>
+                    <td>{{$file->created_at}}</td>
+                    <td>{{$file->size}} KB</td>
                     <td>
-                      <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($file->id)}}"></a>
+                      <a class="btn btn-primary fa fa-search" href="/file/{{$file->id}}/show"></a>
                     </td>
                   </tr>
                   @endforeach
                 </tbody>
               </table>
             </div>
+            {{ $files->links('vendor.pagination.custom') }}
           </div>
         </div>
       </div>

@@ -10,9 +10,12 @@ use Illuminate\Filesystem\Filesystem;
 use App\Http\Requests;
 use App\File;
 use App\Image;
+use App\User;
 use Auth;
 use ZipArchive;
 use Zipper;
+use DB;
+// use File;
 // use UrlGenerator;
 
 class FileController extends Controller
@@ -24,10 +27,11 @@ class FileController extends Controller
      */
     public function index()
     {
-        $data['files'] = File::where('user_id',Auth::id())->get();
+        // $data['files'] = File::where('user_id',Auth::id())->get()->paginate(7);
+        $data['files'] = DB::table('files')->where('user_id','=',Auth::id())->orderBy('id', 'desc')->paginate(10);
         foreach ($data['files'] as $file) {
             
-            $file->size = round(($file->size / 1024 / 1024),2);
+            $file->size = round(($file->size / 1024),2);
 
         }
         // dd($data);
@@ -58,11 +62,16 @@ class FileController extends Controller
         // dd($request->web->getClientOriginalExtension());
         // dd($request->web->getClientOriginalName());
 
+        $imagess = new Image;
+        $imagess->id_image = $request->input('namerepo');
+        $imagess->id_user = $request->input('id');
+        $imagess->save();
 
         $file = new File;
         $file->name = $request->web->getClientOriginalName();
         $file->user_id = $request->input('id');
         $file->size = $request->web->getClientsize();
+        $file->random_name = $request->input('namerepo');
         // dd($file);
 
         // $file->path = $request->web->storeAs($request->input('id'),$file->name).'/'.strstr($request->web->getClientOriginalName(), '.', true);
@@ -176,6 +185,14 @@ class FileController extends Controller
     public function show($id)
     {
         //
+        // dd("halo");
+        $data = File::find($id);
+        // $file = File::get($data->mime);
+        // dd($data->mime);
+        $data['lines'] = file($data->mime);
+        // dd($data['lines'][0]);
+        return view('app.file_show', $data);
+
     }
 
     /**

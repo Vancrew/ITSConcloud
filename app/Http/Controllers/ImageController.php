@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Image;
+use DB;
+use Auth;
 
 class ImageController extends Controller
 {
@@ -14,14 +16,16 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $data['images'] = apiGET('10.151.36.109:4243/images/json');
+        $data['images'] = DB::table('image')->where('id_user','=',Auth::id())->orderBy('created_at', 'desc')->get();
+        // $data['images'] = apiGET('10.151.36.109:4243/images/json');
         // dd($data);
         foreach ($data['images'] as $image) {
             // dd($image);
-            $json = apiGET('10.151.36.109:4243/images/'.$image->Id.'/json');
-            $image->id_image = substr($image->Id, 8, 12);
+            $json = apitestGET('10.151.36.109:4243/images/'.$image->id_image.'/json');
+            // sleep(0);
+            // $image->id_image = substr($image->Id, 8, 12);
             // 
-            $image->Created = substr($json->Created, 0, 10) . " " . substr($json->Created, 11, 8);
+            
             // ;
             // if($json->RepoTags[0]
             // if(is_null ($json->RepoTags[0])
@@ -29,15 +33,19 @@ class ImageController extends Controller
             //     // dd("null");
             // }
             // isset($$votes)
-            $error = NULL;
+            // $error = NULL;
             if (isset($json->RepoTags[0])) {
                 $image->Repo_tags = $json->RepoTags[0];
                 $image->Size = round(($json->Size / 1024 / 1024),2);
+                $image->Created = substr($json->Created, 0, 10) . " " . substr($json->Created, 11, 8);
+                $image->Status = "Success";
             }
             else
             {
                 $image->Repo_tags = "-";
                 $image->Size = "- ";
+                $image->Created = "-";
+                $image->Status = "Undefinied";
             }
         }
 

@@ -30,7 +30,7 @@
               <input type="hidden" class="btn btn-success" value="{{Auth::user()->id}}" name="id">
             </div>
           </div>
-
+ <input type="hidden" class="btn btn-success" value="1" name="cek">
           <div class="form-group">
             <div class="col-md-6 col-sm-6 col-md-offset-3">
               <button type="submit" class="btn btn-success">Submit</button>
@@ -65,8 +65,30 @@
                 <td>{{$ima->id_user}}</td>
                 <td>{{$ima->id_user}} MB</td>
                 <td>
-                  <a class="btn btn-primary fa fa-edit" href="/users/{{$ima->id_user}}/edit"></a>
-                  <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id_user)}}"></a>
+                  <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
+          {{csrf_field()}}
+         
+
+          
+              <input type="hidden" class="btn btn-success" value="{{$ima->id_con}}" name="id">
+           <input type="hidden" class="btn btn-success" value="2" name="cek">
+          
+              <button type="submit" class="btn btn-success">start</button>
+            
+        </form>
+                  <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
+          {{csrf_field()}}
+         
+
+      
+              <input type="hidden" class="btn btn-success" value="{{$ima->id_con}}" name="id">
+               <input type="hidden" class="btn btn-success" value="3" name="cek">
+     
+          
+              <button type="submit" class="btn btn-success">stop</button>
+          
+        </form>>
+
                 </td>
               </tr>
               @endforeach

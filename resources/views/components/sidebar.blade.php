@@ -18,6 +18,18 @@
         @if (in_array(Auth::user()->jabatan, ['admin', 'petugas']))
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-cloud-upload"></i> <span>Dockerfile</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('file')}}"><i class="fa fa-circle-o"></i>Upload</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-list-alt"></i> <span>Image</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -42,17 +54,7 @@
           </ul>
         </li>
 
-         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-cloud-upload"></i> <span>Web</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('file')}}"><i class="fa fa-circle-o"></i>List Web</a></li>
-          </ul>
-        </li>
+         
 
         @if (in_array(Auth::user()->jabatan, ['admin']))
         <li class="treeview">

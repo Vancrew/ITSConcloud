@@ -8,7 +8,7 @@
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header">
-        <h4>Image</h4>
+        <h4>Image Aplikasi</h4>
       </div>
       <div class="box-body">
         <div class="table-responsive">
@@ -16,10 +16,11 @@
             <thead>
               <tr>
                 <th class="text-center">No</th>
-                <th>Id Image</th>
-                <th>Name Image</th>
+                <th>Nama Aplikasi</th>
+                <th>Status</th>
                 <th>Created</th>
                 <th>Size</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -27,9 +28,12 @@
               <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
                 <td>{{$ima->id_image}}</td>
-                <td>{{$ima->Repo_tags}}</td>
+                <td>{{$ima->Status}}</td>
                 <td>{{$ima->Created}}</td>
                 <td>{{$ima->Size}} MB</td>
+                <td>
+                <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id)}}"></a>
+                </td>
               </tr>
               @endforeach
             </tbody>
