@@ -1,6 +1,6 @@
 @extends('app')
 
-@include('plugins.datatable')
+<!-- @include('plugins.datatable') -->
 @include('plugins.datepicker')
 
 @section('content')
@@ -12,7 +12,7 @@
       </div>
       <div class="box-body">
         <div class="table-responsive">
-          <table id="datatable-buttons" class="table table-hover datatabel">
+          <table id="datatable-buttons">
             <thead>
               <tr>
                 <th class="text-center">Line</th>

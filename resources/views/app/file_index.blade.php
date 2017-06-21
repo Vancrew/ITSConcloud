@@ -1,6 +1,6 @@
 @extends('app')
 
-@include('plugins.datatable')
+<!-- @include('plugins.datatable') -->
 @include('plugins.datepicker')
 
 @section('content')
