@@ -18,7 +18,7 @@ class ContainerController extends Controller
     public function index()
     {
         //
-        $data['images'] = DB::table('image')->where('id_user','=',Auth::id())->orderBy('created_at', 'desc')->get();
+        $data['images'] = Image::where('id_user','=',Auth::id())->orderBy('created_at', 'desc')->get();
         foreach ($data['images'] as $image) {
             //dd($image->id_image);
             $json = apitestGET('10.151.36.109:4243/images/'.$image->id_image.'/json');
@@ -39,7 +39,7 @@ class ContainerController extends Controller
         }
 
 
-        $data['containers'] = DB::table('container')->where('id_user','=',Auth::id())->orderBy('created_at', 'desc')->get();
+        $data['containers'] = Container::where('id_user','=',Auth::id())->orderBy('created_at', 'desc')->get();
         foreach ($data['containers'] as $container) {
             //dd($image->id_image);
             $jsoners = apitestGET('10.151.36.109:4243/containers/'.$container->id_con.'/json');

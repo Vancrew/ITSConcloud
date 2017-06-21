@@ -16,7 +16,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $data['images'] = DB::table('image')->where('id_user','=',Auth::id())->orderBy('created_at', 'desc')->get();
+        $data['images'] = Image::where('id_user', Auth::id())
+            ->orderBy('created_at', 'desc')->get();
         // $data['images'] = apiGET('10.151.36.109:4243/images/json');
         // dd($data);
         foreach ($data['images'] as $image) {

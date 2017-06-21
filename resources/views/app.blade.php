@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="itsconloud">
+<html lang="en" ng-app="itsconcloud">
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

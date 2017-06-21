@@ -94,40 +94,38 @@
                 <td>{{$ima->status}}</td>
                 <td>{{$ima->size}} MB</td>
                 <td>
+                @if ($ima->status == "Running")
+                
+                      <div class="col-md-3 col-sm-3">
+                        <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
+                        {{csrf_field()}}
+
+                          <input type="hidden" class="btn btn-success" value="{{$ima->id_con}}" name="id">
+                          <input type="hidden" class="btn btn-success" value="3" name="cek">          
+                          <button type="submit" class="btn btn-danger">stop</button>
+      
+                        </form>
+                      </div>
+                
+                @else
+                
+                      <div class="col-md-3 col-sm-3">
+                        <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
+                        {{csrf_field()}}
+         
+                          <input type="hidden" class="btn btn-success" value="{{$ima->id_con}}" name="id">
+                          <input type="hidden" class="btn btn-success" value="2" name="cek"> 
+                          <button type="submit" class="btn btn-success">start</button>
+            
+                        </form>
+                      </div>
+                
+                @endif
 
                   <div class="form-group">
                   
-                    <div class="col-md-3 col-sm-3">
-                      
-                      <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
-          {{csrf_field()}}
-         
-
-          
-              <input type="hidden" class="btn btn-success" value="{{$ima->id_con}}" name="id">
-           <input type="hidden" class="btn btn-success" value="2" name="cek">
-          
-              <button type="submit" class="btn btn-success">start</button>
-            
-        </form>
-
-                    </div>
-                    <div class="col-md-3 col-sm-3">
-                      
-                      <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
-          {{csrf_field()}}
-         
-
-      
-              <input type="hidden" class="btn btn-success" value="{{$ima->id_con}}" name="id">
-               <input type="hidden" class="btn btn-success" value="3" name="cek">
-     
-          
-              <button type="submit" class="btn btn-success">stop</button>
-          
-        </form>
-
-                    </div>
+                    
+                    
                   </div>
 
                   

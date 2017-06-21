@@ -28,7 +28,7 @@ class FileController extends Controller
     public function index()
     {
         // $data['files'] = File::where('user_id',Auth::id())->get()->paginate(7);
-        $data['files'] = DB::table('files')->where('user_id','=',Auth::id())->orderBy('id', 'desc')->paginate(10);
+        $data['files'] = File::where('user_id','=',Auth::id())->orderBy('id', 'desc')->paginate(10);
         foreach ($data['files'] as $file) {
             
             $file->size = round(($file->size / 1024),2);

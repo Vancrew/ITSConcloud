@@ -1,4 +1,4 @@
-var app = angular.module("tokoberas", []);
+var app = angular.module("itsconcloud", []);
 
 $(function() {
   $.ajaxSetup({
