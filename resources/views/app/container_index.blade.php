@@ -25,6 +25,33 @@
             </div>
           </div>
 
+           <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3">Nama Aplikasi <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="text" name="namerepo" required="required" class="form-control col-md-7">
+            </div>
+          </div>
+
+           <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3">Port <span class="required">*</span>
+            </label>
+            <div class="col-md-3 col-sm-3">
+              <input type="text" name="portto" required="required" class="form-control col-md-2">
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <input type="text" name="portfrom" required="required" class="form-control col-md-2">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3">Memory<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="text" name="memory" required="required" class="form-control col-md-7">
+            </div>
+          </div>
+
           <div class="form-group">
             <div class="col-md-6 col-sm-6">
               <input type="hidden" class="btn btn-success" value="{{Auth::user()->id}}" name="id">
@@ -49,23 +76,30 @@
             <thead>
               <tr>
                 <th class="text-center">No</th>
-                <th>Id Image</th>
-                <th>Name Image</th>
-                <th>Created</th>
+                <th>Nama Container</th>
+                <th>IP Address</th>
+                <th>Memory Limit</th>
+                <th>Status</th>
                 <th>Size</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($container as $ima)
+              @foreach($containers as $ima)
               <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
-                <td>{{$ima->id_con}}</td>
-                <td>{{$ima->id_user}}</td>
-                <td>{{$ima->id_user}}</td>
-                <td>{{$ima->id_user}} MB</td>
+                <td>{{$ima->name}}</td>
+                <td>{{$ima->IPAddress}}</td>
+                <td>{{$ima->memory}} KB</td>
+                <td>{{$ima->status}}</td>
+                <td>{{$ima->size}} MB</td>
                 <td>
-                  <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
+
+                  <div class="form-group">
+                  
+                    <div class="col-md-3 col-sm-3">
+                      
+                      <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
           {{csrf_field()}}
          
 
@@ -76,7 +110,11 @@
               <button type="submit" class="btn btn-success">start</button>
             
         </form>
-                  <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
+
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      
+                      <form data-parsley-validate class="form-horizontal form-label-left" method="post" action="{{url('container')}}">
           {{csrf_field()}}
          
 
@@ -87,7 +125,13 @@
           
               <button type="submit" class="btn btn-success">stop</button>
           
-        </form>>
+        </form>
+
+                    </div>
+                  </div>
+
+                  
+                  
 
                 </td>
               </tr>

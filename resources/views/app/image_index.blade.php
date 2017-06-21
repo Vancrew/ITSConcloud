@@ -16,7 +16,7 @@
             <thead>
               <tr>
                 <th class="text-center">No</th>
-                <th>Nama Aplikasi</th>
+                <th>Nama Image</th>
                 <th>Status</th>
                 <th>Created</th>
                 <th>Size</th>

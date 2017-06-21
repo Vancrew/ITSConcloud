@@ -8,7 +8,7 @@
   <div class="col-md-12 col-sm-12">
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h4>Upload Aplikasi</h4>
+        <h4>Upload Image</h4>
       </div>
       <div class="box-body">
         <br />
@@ -17,7 +17,7 @@
           {{csrf_field()}}
           
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3">Nama Aplikasi <span class="required">*</span>
+            <label class="control-label col-md-3 col-sm-3">Nama Image <span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
               <input type="text" name="namerepo" required="required" class="form-control col-md-7">
@@ -63,7 +63,7 @@
       <div class="col-md-12 col-sm-12">
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h4>Web</h4>
+            <h4>Image</h4>
           </div>
           <div class="box-body">
             <div class="table-responsive">
@@ -71,7 +71,7 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Aplikasi</th>
+                    <th>Nama Image</th>
                     <th>Nama File</th>
                     <th>Tipe File</th>
                     <th>Tanggal</th>
