@@ -134,6 +134,20 @@ function apiGET($url){
 
 }
 
+function apiDEL($url){
+    $client = new Client();
+    $result = $client->request('GET', $url);
+    // dd("pause");
+    $body = $result->getBody();
+    $data =  json_decode($body->getContents());
+    // dd($result);
+    return $data;
+
+    // $promise = $client->requestAsync('GET', 'http://httpbin.org/get');
+// 
+
+}
+
 function apitestGET($url){
     $client = new Client();
     $data = 0;
@@ -250,8 +264,17 @@ function apiPOSTbuild($url){
 
 function apiDELETE($url){
     $client = new Client();
-    $result = $client->request('DELETE', $url);
-    $body = $result->getBody();
-    $data =  json_decode($body->getContents());
+    $data = 0;
+    try{
+        $result = $client->request('DELETE', $url);
+        $body = $result->getBody();
+        $data =  json_decode($body->getContents());  
+    }
+    catch(RequestException $e){
+        // dd("hehe");
+        // $data = 0;
+
+    }
+    // dd($data);
     return $data;
 }

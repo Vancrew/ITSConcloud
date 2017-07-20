@@ -140,7 +140,7 @@
         </li>
         @endif
 
-         @if (in_array(Auth::user()->jabatan, ['admin', 'petugas']))
+         @if (in_array(Auth::user()->jabatan, ['keuangan']))
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i> <span>Dashboard</span>

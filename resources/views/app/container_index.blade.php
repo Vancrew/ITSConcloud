@@ -48,7 +48,20 @@
             <label class="control-label col-md-3 col-sm-3">Memory<span class="required">*</span>
             </label>
             <div class="col-md-6 col-sm-6">
-              <input type="text" name="memory" required="required" class="form-control col-md-7">
+              <select class="form-control col-md-7" required="required" name="memory">
+                  <option value="64m"> 64  MB </option>
+                  <option value="128m"> 128 MB </option>
+                  <option value="256m"> 256 MB </option>
+                  <option value="512m"> 512 MB </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3">Environment
+            </label>
+            <div class="col-md-6 col-sm-6">
+              <input type="text" name="env"  class="form-control col-md-7">
             </div>
           </div>
 
@@ -106,7 +119,11 @@
       
                         </form>
                       </div>
-                
+
+                      <div class="col-md-3 col-sm-3">
+                      <a class="btn btn-primary fa fa-edit" href="/container/{{$ima->id_con}}/edit"></a>
+                      </div>
+
                 @else
                 
                       <div class="col-md-3 col-sm-3">
@@ -118,6 +135,10 @@
                           <button type="submit" class="btn btn-success">start</button>
             
                         </form>
+                      </div>
+
+                      <div class="col-md-3 col-sm-3">
+                        <a class="btn btn-danger fa fa-trash delete-resource" data-id="{{encrypt($ima->id)}}"></a>
                       </div>
                 
                 @endif
@@ -163,7 +184,7 @@ $(function() {
     function(isConfirm){
       if (isConfirm) {
         $.ajax({
-          url: $('meta[name="base_url"]').attr('content') + '/image/' + id,
+          url: $('meta[name="base_url"]').attr('content') + '/container/' + id,
           method: 'POST',
           data: {
             '_method': 'DELETE'

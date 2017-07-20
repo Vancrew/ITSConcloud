@@ -45,8 +45,15 @@ class ContainerController extends Controller
             $jsoners = apitestGET('10.151.36.109:4243/containers/'.$container->id_con.'/json');
             // dd($jsoners);
             
+                
                 $container->name = substr($jsoners->Name,1);
-                $container->IPAddress = $jsoners->NetworkSettings->Networks->mybridge1->IPAddress;
+                
+                // $container->IPAddress = $jsoners->NetworkSettings->Networks->mybridge1->IPAddress;
+                
+                $container->IPAddress = $jsoners->NetworkSettings->IPAddress;
+                
+                // $container->IPAddress = "????";
+                
                 $container->status = $jsoners->State->Status;
                 if($container->status == "running")
                 {
@@ -93,7 +100,7 @@ class ContainerController extends Controller
         // $json = apiPOST('10.151.36.109:4243/containers/'.$request->input('nama_image').'/start');
         // dd($jsontest);
 
-        $command = "docker run --name ".$request->input('namerepo')." -p ".$request->input('portto').":".$request->input('portfrom')." --network=mybridge1 -itd -m ".$request->input('memory')." ".$request->input('nama_image');
+        $command = "docker run --name ".$request->input('namerepo')." -p 10.151.36.8".Auth::id().":".$request->input('portto').":".$request->input('portfrom')." -itd -m ".$request->input('memory')." ".$request->input('env')." ".$request->input('nama_image');
 
         // dd($command);
 
@@ -162,7 +169,40 @@ class ContainerController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        // $data['user'] = User::find($id);
+
+        $container = Container::where('id_con','=',$id)->first();
+            //dd($image->id_image);
+        $jsoners = apitestGET('10.151.36.109:4243/containers/'.$id.'/json');
+        // dd($data);
+    
+        
+        $container->name = substr($jsoners->Name,1);
+        
+        // $container->IPAddress = $jsoners->NetworkSettings->Networks->mybridge1->IPAddress;
+        
+        $container->IPAddress = $jsoners->NetworkSettings->IPAddress;
+        // $container->id = $id;
+        
+        // $container->IPAddress = "????";
+        
+        $container->status = $jsoners->State->Status;
+        if($container->status == "running")
+        {
+            $container->status = "Running";
+        }
+        else
+        {
+            $container->status = "Stop";   
+        }
+        $container->memory = $jsoners->HostConfig->Memory/1024;
+        $container->size = $jsoners->HostConfig->ShmSize/1024/1024;
+
+        $data['container'] = $container;
+        // dd($container->id_con);
+
+        return view('app.container_edit', $data);
     }
 
     /**
@@ -175,6 +215,18 @@ class ContainerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $command = "docker update -m ".$request->input('memory')." ". $id;
+
+        // dd($command);
+
+        $output = shell_exec($command);
+
+        $output = preg_replace('~[\r\n]+~', '', $output);
+
+        // docker update -m 512m b4f3b44d1443
+
+        return redirect('container')->with('edit_success', true);
+
     }
 
     /**
@@ -186,5 +238,11 @@ class ContainerController extends Controller
     public function destroy($id)
     {
         //
+        $jsondel = apiDELETE('10.151.36.109:4243/containers/'.$id);
+
+        $container = Container::find(decrypt($id));
+        $container->delete();
+
+        echo 'success';
     }
 }

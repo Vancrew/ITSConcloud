@@ -134,6 +134,11 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
+
+        // /images/{name}
+            // dd("lolop");
+            $jsondel = apiDELETE('10.151.36.109:4243/images/'.decrypt($id));
+
         $image = Image::find(decrypt($id));
         $image->delete();
 
